@@ -1,0 +1,78 @@
+.game-root {
+    display: flex;
+    margin: 2%;
+
+}
+
+.cards {
+    display: flex;
+    position: relative;
+    width: 50%;
+
+    img {
+        position: absolute;
+        min-width: 100px;
+        max-width: 30%;
+    }
+
+
+    img:nth-child(1) {
+        z-index: 1;
+        left: 5%;
+    }
+
+    img:nth-child(2) {
+        z-index: 2;
+        left: 10%;
+    }
+
+    img:nth-child(3) {
+        z-index: 3;
+        left: 15%;
+    }
+
+    img:nth-child(4) {
+        z-index: 4;
+        left: 20%;
+    }
+
+    img:nth-child(5) {
+        z-index: 6;
+        left: 25%;
+    }
+
+    img:nth-child(7) {
+        z-index: 7;
+        left: 30%;
+    }
+
+    img:nth-child(8) {
+        z-index: 8;
+        left: 35%;
+    }
+
+    img:nth-child(9) {
+        z-index: 9;
+        left: 40%;
+    }
+
+    img:nth-child(10) {
+        z-index: 10;
+        left: 45%;
+    }
+
+    img:nth-child(11) {
+        z-index: 11;
+        left: 50%;
+    }
+
+    img:nth-child(12) {
+        z-index: 12;
+        left: 55%;
+    }
+
+    img:nth-child(13) {
+        z-index: 13;
+        left: 60%;
+    }
+}

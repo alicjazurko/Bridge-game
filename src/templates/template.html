@@ -5,25 +5,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
   <title>Brydż</title>
 </head>
 
 <body>
-  <section class="cards">
-    <img src="images/5D.svg" alt="">
-    <img src="images/6D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-    <img src="images/5D.svg" alt="">
-  </section>
+  <div class="root">
+    <div class="new-game">
+      <button type="button" class="btn btn-warning">Nowe rozdanie</button>
+    </div>
+    <div class="game-root">
+      <section class="cards">
+        <img src="images/5D.svg" alt="">
+        <img src="images/6D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+        <img src="images/5D.svg" alt="">
+      </section>
+      <section class="auction">
+        <div class="numbers">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-success">1</button>
+            <button type="button" class="btn btn-outline-success">2</button>
+            <button type="button" class="btn btn-outline-success">3</button>
+            <button type="button" class="btn btn-outline-success">4</button>
+            <button type="button" class="btn btn-outline-success">5</button>
+            <button type="button" class="btn btn-outline-success">6</button>
+            <button type="button" class="btn btn-outline-success">7</button>
+          </div>
+        </div>
+        <div class="symbols">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-outline-success">♠ Spades</button>
+            <button type="button" class="btn btn-outline-success">♥ Hearts</button>
+            <button type="button" class="btn btn-outline-success">♦ Diamonds</button>
+            <button type="button" class="btn btn-outline-success">♣ Clubs</button>
+            <button type="button" class="btn btn-outline-success">No Trump</button>
+            <button type="button" class="btn btn-outline-success">Pass</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success">Licytuj</button>
+      </section>
+    </div>
+    
+  </div>
+
+
 
 </body>
 
