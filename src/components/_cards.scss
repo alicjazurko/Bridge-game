@@ -1,6 +1,16 @@
 .game-root {
     display: flex;
     margin: 2%;
+    width: 90%;
+    background-color: #eee;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media screen and (max-width: map-get($breakpoints, md)) {
+        flex-direction: column;
+
+    }
 
 }
 
@@ -8,6 +18,11 @@
     display: flex;
     position: relative;
     width: 50%;
+
+    @media screen and (max-width: map-get($breakpoints, md)) {
+        width: 100%;
+
+    }
 
     img {
         position: absolute;
