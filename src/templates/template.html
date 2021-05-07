@@ -28,56 +28,40 @@
       <section class="auction">
         <div class="numbers">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-success">1</button>
-            <button type="button" class="btn btn-outline-success">2</button>
-            <button type="button" class="btn btn-outline-success">3</button>
-            <button type="button" class="btn btn-outline-success">4</button>
-            <button type="button" class="btn btn-outline-success">5</button>
-            <button type="button" class="btn btn-outline-success">6</button>
-            <button type="button" class="btn btn-outline-success">7</button>
+            <button type="radio" id="btncheckN1" class="btn btn-outline-success">1</button>
+            <button type="radio" id="btncheckN2" class="btn btn-outline-success">2</button>
+            <button type="radio" id="btncheckN3" class="btn btn-outline-success">3</button>
+            <button type="radio" id="btncheckN4" class="btn btn-outline-success">4</button>
+            <button type="radio" id="btncheckN5" class="btn btn-outline-success">5</button>
+            <button type="radio" id="btncheckN6" class="btn btn-outline-success">6</button>
+            <button type="radio" id="btncheckN7" class="btn btn-outline-success">7</button>
           </div>
         </div>
         <div class="symbols">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-success">♠ Spades</button>
-            <button type="button" class="btn btn-outline-success">♥ Hearts</button>
-            <button type="button" class="btn btn-outline-success">♦ Diamonds</button>
-            <button type="button" class="btn btn-outline-success">♣ Clubs</button>
-            <button type="button" class="btn btn-outline-success">No Trump</button>
-            <button type="button" class="btn btn-outline-success">Pass</button>
+            <button type="radio" id="btncheckSs" class="btn btn-outline-success">♠ Spades</button>
+            <button type="radio" id="btncheckSh" class="btn btn-outline-success">♥ Hearts</button>
+            <button type="radio" id="btncheckSd" class="btn btn-outline-success">♦ Diamonds</button>
+            <button type="radio" id="btncheckSc" class="btn btn-outline-success">♣ Clubs</button>
+            <button type="radio" id="btncheckSnt" class="btn btn-outline-success">No Trump</button>
+            <button type="radio" id="btncheckSp" class="btn btn-outline-success">Pass</button>
           </div>
         </div>
-        <button type="button" class="btn btn-success">Licytuj</button>
+
+        <button type="button" class="btn btn-success btnAuction">Licytuj</button>
         <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">Ja</th>
-              <th scope="col">Dziadek</th>
-            </tr>
-          </thead>
+          <thead></thead>
           <tbody>
-            <tr>
-              <td>1♠</td>
-              <td>2♠</td>
-            </tr>
-            <tr>
-              <td>3♠</td>
-              <td>4♠</td>
-            </tr>
-            <tr>
-              <td>5♠</td>
-              <td>6♠</td>
-            </tr>
           </tbody>
         </table>
-        <button type="button" class="btn btn-success">Nowa tura</button>
-
+        <button type="button" class="btn btn-success btnNewTurn">Nowa tura</button>
+        <button type="button" class="btn btn-success csv">Drukuj do pliku CSV</button>
       </section>
     </div>
 
     
   </div>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 </body>

@@ -1,0 +1,230 @@
+body {
+  font-family: arial;
+}
+
+body img {
+  width: 100%;
+  max-width: 300px;
+}
+
+.new-game {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  background-color: #ffadad;
+  border-bottom: 3px solid #ad0000;
+}
+
+.new-game div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.new-game .btn,
+.new-game .who-start {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 1024px) {
+  .new-game .btn,
+  .new-game .who-start {
+    font-size: 16px;
+  }
+}
+
+.game-root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 2%;
+  width: 90%;
+  background-color: #eee;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+@media screen and (max-width: 1024px) {
+  .game-root {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  width: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+  .cards {
+    width: 100%;
+  }
+}
+
+.cards img {
+  position: absolute;
+  min-width: 100px;
+  max-width: 30%;
+}
+
+.cards img:nth-child(1) {
+  z-index: 1;
+  left: 5%;
+}
+
+.cards img:nth-child(2) {
+  z-index: 2;
+  left: 10%;
+}
+
+.cards img:nth-child(3) {
+  z-index: 3;
+  left: 15%;
+}
+
+.cards img:nth-child(4) {
+  z-index: 4;
+  left: 20%;
+}
+
+.cards img:nth-child(5) {
+  z-index: 6;
+  left: 25%;
+}
+
+.cards img:nth-child(7) {
+  z-index: 7;
+  left: 30%;
+}
+
+.cards img:nth-child(8) {
+  z-index: 8;
+  left: 35%;
+}
+
+.cards img:nth-child(9) {
+  z-index: 9;
+  left: 40%;
+}
+
+.cards img:nth-child(10) {
+  z-index: 10;
+  left: 45%;
+}
+
+.cards img:nth-child(11) {
+  z-index: 11;
+  left: 50%;
+}
+
+.cards img:nth-child(12) {
+  z-index: 12;
+  left: 55%;
+}
+
+.cards img:nth-child(13) {
+  z-index: 13;
+  left: 60%;
+}
+
+.auction {
+  width: 50%;
+  position: absolute;
+  right: 2%;
+}
+
+@media screen and (max-width: 1024px) {
+  .auction {
+    width: 100%;
+    top: 43vw;
+    right: 0;
+    margin-left: 2%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .auction {
+    top: 45vw;
+  }
+}
+
+.auction .numbers,
+.auction .symbols {
+  margin: 1%;
+}
+
+.auction .numbers .btn-group,
+.auction .symbols .btn-group {
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .auction .numbers .btn-group,
+  .auction .symbols .btn-group {
+    width: 90%;
+  }
+}
+
+.auction .num,
+.auction .sym {
+  width: 100%;
+  margin: 2px;
+}
+
+.auction .num label,
+.auction .sym label {
+  width: 100%;
+}
+
+.btn,
+.table {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .btn,
+  .table {
+    font-size: 12.8px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .btn,
+  .table {
+    font-size: 8px;
+  }
+}
+
+.table {
+  position: relative;
+  margin: 10px;
+  width: 100%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+@media screen and (max-width: 1024px) {
+  .table {
+    width: 90%;
+    -webkit-transform: translateX(-57%);
+            transform: translateX(-57%);
+  }
+}
+
+.table th,
+.table td {
+  width: 50%;
+}
+/*# sourceMappingURL=index.css.map */

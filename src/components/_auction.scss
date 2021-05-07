@@ -29,10 +29,15 @@
         }
     }
 
-    .btn-success {
-        margin: 1%;
-        width: 150px;
+    .num,
+    .sym {
+        width: 100%;
+        margin: 2px;
 
+        label {
+            width: 100%;
+
+        }
     }
 
 }
