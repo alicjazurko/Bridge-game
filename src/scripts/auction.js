@@ -47,7 +47,9 @@ symbols.addEventListener("click", (e) => {
     eventSymbol = e;
     if(eventSymbol.target.id == "btncheckSs" || eventSymbol.target.id == "btncheckSh" || eventSymbol.target.id == "btncheckSd" || eventSymbol.target.id == "btncheckSc") {
         symbol = eventSymbol.target.textContent[0];
-    } else if(eventSymbol.target.id == "btncheckSnt" || eventSymbol.target.id == "btncheckSp") {
+    } else if(eventSymbol.target.id == "btncheckSnt") {
+        symbol = eventSymbol.target.textContent;
+    } else if(eventSymbol.target.id == "btncheckSp") {
         number = "";
         symbol = eventSymbol.target.textContent; 
     }
@@ -55,19 +57,39 @@ symbols.addEventListener("click", (e) => {
 })
 
 //tablica możliwości dziadka do losowania
+// function grandpaAuctionOptions() {
+    
+// }
+
 const grandpaAuctionOptions = [
     [1, 2, 3, 4, 5, 6, 7], 
     ["♠", "♥", "♦", "♣", "No Trump", "Pass"]
 ]
+const auctionOptions1 = ["1♣", "2♣", "3♣", "4♣", "5♣", "6♣", "7♣", "Pass", "1♦", "2♦", "3♦", "4♦", "5♦", "6♦", "7♦", "Pass", "1♥", "2♥", "3♥", "4♥", "5♥", "6♥", "7♥", "Pass", "1♠", "2♠", "3♠", "4♠", "5♠", "6♠", "7♠", "Pass", "1No Trump", "2No Trump", "3No Trump", "4No Trump", "5No Trump", "6No Trump", "7No Trump", "Pass"]
 
-function grandpaTurn() {
-    let num = Math.floor(Math.random() * grandpaAuctionOptions[0].length);
-    let symb = Math.floor(Math.random() * grandpaAuctionOptions[1].length);
-    if(symb == 4 || symb == 5) {
-        grandpaAuction = grandpaAuctionOptions[1][symb];
-    } else {
-        grandpaAuction = grandpaAuctionOptions[0][num] + grandpaAuctionOptions[1][symb];
+function grandpaTurn(myLastAuction) {
+    console.log(myLastAuction)
+    // let auctionOptions1 = []
+    // auctionOptions1.push(auctionOptions)
+    let grandpaAuctionOptions = []
+    for(let i = 0; i < auctionOptions1.length; i++){
+        if(myLastAuction == auctionOptions1[i]){
+            grandpaAuctionOptions = auctionOptions1.slice(i+1, auctionOptions1.length)
+            console.log(grandpaAuctionOptions)
+            console.log(auctionOptions1)
+        }
     }
+    let grandpaAuctionIndex = Math.floor(Math.random() * grandpaAuctionOptions.length);
+    grandpaAuction = grandpaAuctionOptions[grandpaAuctionIndex]
+    grandpaAuctionOptions = []
+
+    // let num = Math.floor(Math.random() * grandpaAuctionOptions[0].length);
+    // let symb = Math.floor(Math.random() * grandpaAuctionOptions[1].length);
+    // if(symb == 5) {
+    //     grandpaAuction = grandpaAuctionOptions[1][symb];
+    // } else {
+    //     grandpaAuction = grandpaAuctionOptions[0][num] + grandpaAuctionOptions[1][symb];
+    // }
 }
 
 function resetBtnColors() {
@@ -109,16 +131,16 @@ function createTable() {
     
     tableBody.appendChild(tableLine);
 
-    grandpaTurn();
+    
     tableLine.appendChild(tableLineGrandpaElement);
     tableLineGrandpaElement.textContent = grandpaAuction; 
 }
 
 function auctionTable() {
-
+    
     //walidacja czy licytacja jest poprawna
     let OKflag; //sprawdzenie czy wszystkie dane są poprawne - boolean
-
+    
     if(symbol == "" || symbol == undefined || number == NaN || number == undefined || (number == "" && !(symbol == "No Trump" || symbol == "Pass"))) {
         alert("błąd licytacji, sprawdź czy wybór jest poprawny.")
         OKflag = false;
@@ -129,9 +151,9 @@ function auctionTable() {
         tableMyAuctions.push(auction);
         tableGrandpaAuctions.push(grandpaAuction);
     }
-    let myLastAuction = tableMyAuctions[tableMyAuctions.length - 2];
-    let grandpaLastAuction = tableGrandpaAuctions[tableGrandpaAuctions.length - 1];
-
+    let myLastAuction = tableMyAuctions[tableMyAuctions.length - 1];
+    let grandpaLastAuction = tableGrandpaAuctions[tableGrandpaAuctions.length];
+    grandpaTurn(myLastAuction);
     //tworzenie elementów tabeli licytacji, jeśli ruch jest poprawny
     if(flag_newGame == true && OKflag == true && endTurn == false) {
         if(myLastAuction == "Pass" || grandpaLastAuction == "Pass") {
@@ -207,4 +229,3 @@ btnCsv.addEventListener('click', function() {
     
 
 })
-
