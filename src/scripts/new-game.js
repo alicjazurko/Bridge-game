@@ -2,7 +2,9 @@ const cards = ["2C.svg", "2D.svg", "2H.svg", "2S.svg", "3C.svg", "3D.svg", "3H.s
 const emptyCard = "rewers.svg";
 const sectionCards = document.querySelector(".cards");
 
-const btnNewGame = document.querySelector(".new-game .btn");
+const btnNewGameN = document.querySelector(".new-game .n");
+const btnNewGameS = document.querySelector(".new-game .s");
+const btnNewTurn = document.querySelector(".btnNewTurn");
 
 let cardsArr = [...cards]; //tablica modyfikowalna, usuwnaie elementów przy rozdawaniu kart
 
@@ -11,7 +13,7 @@ let gamer2;
 let gamer3;
 let gamer4;
 
-export let flag_newGame = false; //czy został kliknięcty przycisk nowe rozdanie
+export let flag_newGame_N = false; //czy został kliknięcty przycisk nowe rozdanie
 
 //losowanie 13 kart z tablicy cardsArr
 function giveCardsForAll() {
@@ -71,16 +73,35 @@ function newGame() {
 }
 
 //początek gry po kliknięciu w przycisk nowe rozdanie
-btnNewGame.addEventListener("click", function() {
+btnNewGameN.addEventListener("click", function() {
     for(let i = 0; i < 13; i++ ){
         sectionCards.removeChild(document.querySelector(".cards img"));
     }
     
-    flag_newGame = true; //można rozpocząć licytację, jak są wyświetlone karty
+    flag_newGame_N = true; //można rozpocząć licytację, jak są wyświetlone karty
 
     newGame();
 })
 
+btnNewGameS.addEventListener("click", function() {
+    for(let i = 0; i < 13; i++ ){
+        sectionCards.removeChild(document.querySelector(".cards img"));
+    }
+    
+    flag_newGame_N = true; //można rozpocząć licytację, jak są wyświetlone karty
+
+    newGame();
+})
+
+btnNewTurn.addEventListener("click", function() {
+    for(let i = 0; i < 13; i++ ){
+        sectionCards.removeChild(document.querySelector(".cards img"));
+    }
+    
+    flag_newGame_N = true; //można rozpocząć licytację, jak są wyświetlone karty
+
+    newGame();
+})
 
 
 
