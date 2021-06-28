@@ -97,7 +97,7 @@ function partnerTurn(myLastAuction) {
     }
 
     partnerAuctionOptions = []
-
+    tablePartnerAuctions.push(partnerAuction)
 }
 
 function resetBtnColors() {
@@ -140,54 +140,64 @@ function createTable() {
     
     tableLinePartnerElement.textContent = partnerAuction; 
     tableLineElement.textContent = auction;
-
-
-
 }
 
 function auctionTable() {
     
     //walidacja czy licytacja jest poprawna
     let OKflag; //sprawdzenie czy wszystkie dane są poprawne - boolean
-    
+    let myAuctionOptions = []
+
     if(symbol == "" || symbol == undefined || number == NaN || number == undefined || (number == "" && !(symbol == "Pass"))) {
         // alert("błąd licytacji, sprawdź czy wybór jest poprawny.")
         OKflag = false;
-
     } else {
         auction = number + symbol;
         OKflag = true;
     }
-
     tableMyAuctions.push(auction);
-    tablePartnerAuctions.push(partnerAuction);
+    // tablePartnerAuctions.push(partnerAuction);
 
     let myLastAuction = tableMyAuctions[tableMyAuctions.length - 1];
     let partnerLastAuction = tablePartnerAuctions[tablePartnerAuctions.length - 1];
     partnerTurn(myLastAuction);
-    console.log(partnerLastAuction, partnerAuction)
-    console.log(tablePartnerAuctions)
+
+    for(let i = 0; i < auctionOptions1.length; i++){
+        if(partnerLastAuction == auctionOptions1[i]){
+            myAuctionOptions = auctionOptions1.slice(i+1, auctionOptions1.length)
+        }
+    }
     //tworzenie elementów tabeli licytacji, jeśli ruch jest poprawny
     if(flag_newGame_N == true && OKflag == true && endTurn == false) {
         if(myLastAuction == "Pass" || partnerAuction == "Pass") {
-            console.log(partnerLastAuction)
             OKflag = false;
             endTurn = true;
             resetBtnColors();
             createTable();
-            // alert("Koniec tury")
             btnAuction.disabled = true;
         } else {
-            createTable();
+            if (myAuctionOptions.indexOf(auction) !== -1) {
+                createTable();
 
-            symbol = "";
-            number = "";
+                symbol = "";
+                number = "";
+            } else if(Nturn == true && tableBody.firstChild == null) {
+                createTable();
+
+                symbol = "";
+                number = "";
+            } else {
+                tablePartnerAuctions.pop()
+                alert("Zmień licytację")
+            }
         }
     } else {
-        alert("Wybierz kto zaczyna") //dorobić ładny alert
+        tablePartnerAuctions.pop()
+        alert("Wybierz kto zaczyna") 
     }
 
     gameDataToJson(new Date(),auction, partnerAuction); //do objektu json za kazdym kliknieciem w licytuj
+
     resetBtnColors();
 }
 
@@ -202,6 +212,8 @@ btnAuction.addEventListener('click', function() {
     auctionTable()
 })
 
+let tableAllTurnsPartner = []
+
 btnNewTurn.addEventListener('click',function() {
     resetBtnColors();
     resetTable();
@@ -211,6 +223,8 @@ btnNewTurn.addEventListener('click',function() {
     Sturn = false;
     btnNewGameS.classList.remove("active")
     btnNewGameN.classList.remove("active")
+    tableAllTurnsPartner.push(tablePartnerAuctions);
+    tablePartnerAuctions = []
 })
 
 btnNewGameN.addEventListener('click', function(){
@@ -218,9 +232,9 @@ btnNewGameN.addEventListener('click', function(){
     Sturn = false;
     btnNewGameN.classList.add('active')
     btnNewGameS.classList.remove("active")
-    console.log(Nturn, Sturn)
     resetTable();
     btnAuction.disabled = false;
+    tablePartnerAuctions = []
 })
 
 
@@ -229,7 +243,6 @@ btnNewGameS.addEventListener('click', function(){
     Nturn = false;
     btnNewGameN.classList.remove('active')
     btnNewGameS.classList.add("active")
-    console.log(Sturn, Nturn)
     resetTable();
     btnAuction.disabled = false;
 
@@ -265,21 +278,46 @@ function downloadCSV(csv, filename) {
 
 function exportTableToCsv(filename) {
     let csv = [];
-    var rows = document.querySelectorAll("table tr");
+    var rows = document.querySelectorAll("table tr, table tr");
     for(let i = 0; i < rows.length; i++) {
-        var row = [];
+        var row = "";
         var cols = rows[i].querySelectorAll("td, th");
+        
         for(let j = 0; j < cols.length; j++) {
-            row.push(cols[j].innerText);
 
-        csv.push(row.join(","));
+            let sym = cols[j].innerText; //przypisujemy do nowej zmiennej lokalnej aby nie podmieniać symbolu na tekst globalnie
+            
+            if (cols[j].innerText[1] == "♣") {
+                sym.slice(1, cols[j].innerText.length);
+                sym = sym[0] + "Clubs"
+            
+            } else if (cols[j].innerText[1] == "♦") { //♦
+                sym.slice(1, cols[j].innerText.length);
+                sym = sym[0] + "Diamonds"
+
+            } else if (cols[j].innerText[1] == "♥") {
+                sym.slice(1, cols[j].innerText.length);
+                sym = sym[0] + "Hearts"
+
+            } else if (cols[j].innerText[1] == "♠") {
+                sym.slice(1, cols[j].innerText.length);
+                sym = sym[0] + "Spades"
+            } 
+
+            if (j == 0) {
+                sym = sym + ";"
+                console.log(sym)
+            }
+            row += sym;
+            console.log(row)   
         }
+        csv.push(row);
+        row = ""
+        csv.map(row => row + "\n")
     }
         //download csv
-
+        console.log(cols, row, csv)
         downloadCSV(csv.join("\n"), filename)
-
-    
 }
 
 btnCsv.addEventListener('click', function() {

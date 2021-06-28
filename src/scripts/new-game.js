@@ -25,8 +25,6 @@ function giveCardsForAll() {
         cardsArr.splice(index, 1);
         indexArr.push(index);
         gamer.push(cardValue);
-        // *******
-        // ******* tutaj zrobić sortowanie kart
         
     }
     return gamer;   
@@ -98,9 +96,9 @@ btnNewTurn.addEventListener("click", function() {
         sectionCards.removeChild(document.querySelector(".cards img"));
     }
     
-    flag_newGame_N = true; //można rozpocząć licytację, jak są wyświetlone karty
+    flag_newGame_N = false; //można rozpocząć licytację, jak są wyświetlone karty
 
-    newGame();
+    emptyCards();
 })
 
 
