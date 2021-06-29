@@ -1,5 +1,6 @@
-import { flag_newGame_N } from './new-game.js';
+import { flag_newGame_N, cardsGamerN, cardsGamerS } from './new-game.js';
 
+//pobranie elementów z DOM
 const numbers = document.querySelector(".numbers div");
 const symbols = document.querySelector(".symbols div");
 const btnAuction = document.querySelector(".btnAuction");
@@ -23,7 +24,6 @@ let auction;
 let partnerAuction;
 
 //uzupełnianie tabelki z licytacjami
-// const tableAuction = document.querySelector(".table-bordered");
 const tableHead = document.querySelector(".table-bordered thead");
 const tableBody = document.querySelector(".table-bordered tbody");
 let tableMyAuctions = [];
@@ -32,13 +32,19 @@ let tablePartnerAuctions = [];
 let eventNumber;
 let eventSymbol;
 
-//dodawanie danych z licytacji do obiektu, który potem konwertujemy na plik json
-let dataToJson = {
-    date: "",
-    myTurn: [],
-    partnerTurn: []
-}
-//tutaj jeszcze nie działa usuwanie podświetlenia wybranych wcześniejszych kafelków
+// tablica z wierszami(turami) do csv, początkowo zainicjowane nagłówki
+let csv = ["CN1;CN2;CN3;CN4;CN5;CN6;CN7;CN8;CN9;CN10;CN11;CN12;CN13;CS1;CS2;CS3;CS4;CS5;CS6;CS7;CS8;CS9;CS10;CS11;CS12;CS13;Dealer;B1;B2;B3;B4;B5;B6;B7;B8;B9;B10"];
+
+//zmienna przechowująca string kto zaczyna
+let dealer;
+
+//wiersz do CSV z danymi z jednej tury
+let CSVRow;
+
+let tableAllTurnsPartner = []
+
+
+//EVENTY wyboru
 numbers.addEventListener("click", (e) => {
     eventNumber = e;
     number = eventNumber.target.textContent;
@@ -111,11 +117,6 @@ function resetBtnColors() {
     symbol = "";
 }
 
-function gameDataToJson(date = dataToJson.date, auction, partnerAuction) {
-    dataToJson.date = date
-    dataToJson.myTurn.push(auction);
-    dataToJson.partnerTurn.push(partnerAuction);
-}
 
 function createTable() {
     // tworzenie nagłówka
@@ -149,14 +150,12 @@ function auctionTable() {
     let myAuctionOptions = []
 
     if(symbol == "" || symbol == undefined || number == NaN || number == undefined || (number == "" && !(symbol == "Pass"))) {
-        // alert("błąd licytacji, sprawdź czy wybór jest poprawny.")
         OKflag = false;
     } else {
         auction = number + symbol;
         OKflag = true;
     }
     tableMyAuctions.push(auction);
-    // tablePartnerAuctions.push(partnerAuction);
 
     let myLastAuction = tableMyAuctions[tableMyAuctions.length - 1];
     let partnerLastAuction = tablePartnerAuctions[tablePartnerAuctions.length - 1];
@@ -175,6 +174,10 @@ function auctionTable() {
             resetBtnColors();
             createTable();
             btnAuction.disabled = true;
+
+            CSVRow = createCSVRow();
+            csv.push(CSVRow);
+
         } else {
             if (myAuctionOptions.indexOf(auction) !== -1) {
                 createTable();
@@ -196,8 +199,6 @@ function auctionTable() {
         alert("Wybierz kto zaczyna") 
     }
 
-    gameDataToJson(new Date(),auction, partnerAuction); //do objektu json za kazdym kliknieciem w licytuj
-
     resetBtnColors();
 }
 
@@ -212,8 +213,7 @@ btnAuction.addEventListener('click', function() {
     auctionTable()
 })
 
-let tableAllTurnsPartner = []
-
+// kliknięcie w przycisk nowa tura
 btnNewTurn.addEventListener('click',function() {
     resetBtnColors();
     resetTable();
@@ -227,6 +227,7 @@ btnNewTurn.addEventListener('click',function() {
     tablePartnerAuctions = []
 })
 
+//N zaczyna
 btnNewGameN.addEventListener('click', function(){
     Nturn = true;
     Sturn = false;
@@ -234,10 +235,12 @@ btnNewGameN.addEventListener('click', function(){
     btnNewGameS.classList.remove("active")
     resetTable();
     btnAuction.disabled = false;
-    tablePartnerAuctions = []
+    tablePartnerAuctions = [];
+    dealer = "N";
+    
 })
 
-
+// S zaczyna
 btnNewGameS.addEventListener('click', function(){
     Sturn = true;
     Nturn = false;
@@ -253,11 +256,9 @@ btnNewGameS.addEventListener('click', function(){
     }
     partnerTurn("")
     createTable()
+
+    dealer = "S";
 })
-
-
-
-
 
 
 //PLIK CSV
@@ -271,15 +272,22 @@ function downloadCSV(csv, filename) {
     downloadLink.style.display = "none";
 
     document.body.appendChild(downloadLink);
-
     downloadLink.click();
 
 }
 
-function exportTableToCsv(filename) {
-    let csv = [];
+
+function exportCardsToCsv() {
+    let cardsToCsv = cardsGamerN + cardsGamerS + dealer +";";
+    return cardsToCsv
+}
+
+
+function exportAuctionToCsv() {
+    let auctionRow = "";
     var rows = document.querySelectorAll("table tr, table tr");
-    for(let i = 0; i < rows.length; i++) {
+
+    for(let i = 1; i < rows.length; i++) {
         var row = "";
         var cols = rows[i].querySelectorAll("td, th");
         
@@ -287,6 +295,7 @@ function exportTableToCsv(filename) {
 
             let sym = cols[j].innerText; //przypisujemy do nowej zmiennej lokalnej aby nie podmieniać symbolu na tekst globalnie
             
+            //Zmiana symboli na tekt
             if (cols[j].innerText[1] == "♣") {
                 sym.slice(1, cols[j].innerText.length);
                 sym = sym[0] + "Clubs"
@@ -304,26 +313,30 @@ function exportTableToCsv(filename) {
                 sym = sym[0] + "Spades"
             } 
 
-            if (j == 0) {
+            //ominięcie pustych komórek (np. gdy S zaczyna)
+            if (sym !== "") {
                 sym = sym + ";"
-                console.log(sym)
             }
+            
             row += sym;
-            console.log(row)   
         }
-        csv.push(row);
-        row = ""
-        csv.map(row => row + "\n")
+        //suma wszystkich wierszy do jednego strinaga do csv
+        auctionRow += row;
     }
-        //download csv
-        console.log(cols, row, csv)
-        downloadCSV(csv.join("\n"), filename)
+    return auctionRow
 }
 
+//ostateczny string do csv z jednej tury
+function createCSVRow() {
+    let cardsCSV = exportCardsToCsv();
+    let auctionCSV = exportAuctionToCsv();
+
+    return cardsCSV + auctionCSV;
+}
+
+//kliknięcie w przycisk pobierz plik csv
 btnCsv.addEventListener('click', function() {
-    // let jsonData = JSON.stringify(dataToJson);
 
-    exportTableToCsv("rozgrywka" + dataToJson.date + ".csv")
-    
-
+    //download csv
+    downloadCSV(csv.join("\n"), "rozgrywka.csv");
 })

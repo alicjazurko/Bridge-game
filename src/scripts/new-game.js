@@ -8,10 +8,14 @@ const btnNewTurn = document.querySelector(".btnNewTurn");
 
 let cardsArr = [...cards]; //tablica modyfikowalna, usuwnaie elementów przy rozdawaniu kart
 
+//karty rozdane na 4 graczy
 let gamer1;
 let gamer2;
 let gamer3;
 let gamer4;
+
+export let cardsGamerN;
+export let cardsGamerS;
 
 export let flag_newGame_N = false; //czy został kliknięcty przycisk nowe rozdanie
 
@@ -48,7 +52,7 @@ function myCards(gamer) {
         card.src = "images/" + myCards[i];
         sectionCards.appendChild(card);
     }
-    // console.log(myCards)
+
 }
 
 //puste karty pokazują się na poczatku po odświezeniu strony
@@ -62,15 +66,30 @@ function emptyCards() {
 
 emptyCards();
 
+//stworzenie tablicy z kartami którą wykorzystamy do csv
+function createCardsTableCSV(gamer) {
+    let cards = "";
+    let gamerCSV;
+    for(let i = 0; i < gamer.length; i++) {
+        gamerCSV = gamer[i].slice(0,-4)
+        cards += gamerCSV + ";";
+    }
+    return cards
+}
 
+//nowa gra, rozdanie kart
 function newGame() {
     giveCardsForGamers(); 
     myCards(gamer1);
     cardsArr = [].concat(cards);
 
+    //tworzenie tablic do csv
+    cardsGamerN = createCardsTableCSV(gamer1);
+    cardsGamerS = createCardsTableCSV(gamer2);
 }
 
-//początek gry po kliknięciu w przycisk nowe rozdanie
+
+//początek gry po kliknięciu w przycisk z wyborek kto zaczyna
 btnNewGameN.addEventListener("click", function() {
     for(let i = 0; i < 13; i++ ){
         sectionCards.removeChild(document.querySelector(".cards img"));
@@ -100,6 +119,7 @@ btnNewTurn.addEventListener("click", function() {
 
     emptyCards();
 })
+
 
 
 
